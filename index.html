@@ -1,17 +1,18 @@
 <html>
-<head><h1>Casper's Top 10 Favorite Animals</h1></head>
-<body>
-<h3><p id='animal1'></p> </h3><br>
-<h3> 2. Cats</h3> <br>
-<h3> 3. Elephants</h3> <br>
-<h3>4. Giraffes </h3> <br>
-<h3>5. Seals (Dog Mermaids)</h3> <br>
-<h3>6. Cows </h3> <br>
-<h3>7. Cheetahs</h3> <br>
-<h3>8. Pandas </h3> <br>
-<h3>9. Polar Bears</h3> <br>
-<h3>10. Quokka</h3> </body>
-<script>
-document.getElementById("animal1").innerHTML = "1. Dogs";
-</script>
+    <head><h1>Casper's Top 10 Favorite Animals</h1></head>
+     
+    <body>
+        <h3><p id='list'></p>  
+    <script src="lodash.js"></script>
+    <script>
+        var animals = ["Dogs","Cats","Elephants","Giraffes","Alpacas","Cows","Cheetahs","Pandas","Polar Bears", "Quokkas"];
+        var shuffled_animals = _.shuffle(animals)
+        var fLen = shuffled_animals.length;
+        var text = "<ul>";
+        for (i = 0; i < fLen; i++) 
+        {text += "<li>" + shuffled_animals[i] + '<br><img src="'+shuffled_animals[i].toLowerCase()+_.shuffle(['1','2'])[0]+'.jpg"  width="200" height="200"> </li>';}
+        text += "</ul>";
+        document.getElementById("list").innerHTML = text;
+    </script>
+    </body>
 </html>
