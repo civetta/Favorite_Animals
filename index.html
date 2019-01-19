@@ -1,38 +1,79 @@
 <html>
     <head>
         <style>
-            body {background-color: lightblue;}
-            
-            h1 {color: white;
-            text-align: center;}
-            
-            p {font-family: verdana;
-            font-size: 20px;
-            text-align: center;}
-
-            div {
-            background-color: lightgrey;
-            width: 80%;
-            padding: 25px;
-            margin: auto;}
+            .square {
+                float:left;
+                position: relative;
+                width: 30%;
+                padding-bottom : 30%;
+                /* = width for a 1:1 aspect ratio */
+                margin:1.66%;
+                overflow:hidden;
             }
+            .content {
+                position:absolute;
+                height:100%;
+                width:100%;
+            }
+            .table{
+                display:table;
+                height:100%;
+                width:100%;
+            }
+            .table-cell{
+                display:table-cell;
+                vertical-align:middle;
+                height:100%;
+                width:100%;
+            }
+            img {
+                object-fit: cover 
+            }
+
+
         </style>
     <h1>Casper's Top 10 Favorite Animals</h1></head>
      
     <body>
 
 
-        <h3><div><p id='list'></p>  </div>
+        <h3><p id='list'></p>  
     <script src="lodash.js"></script>
     <script>
-        var animals = ["Dogs","Cats","Elephants","Giraffes","Alpacas","Cows","Cheetahs","Pandas","Polar Bears", "Quokkas"];
-        var shuffled_animals = _.shuffle(animals)
-        var fLen = shuffled_animals.length;
-        var text = "<ul>";
-        for (i = 0; i < fLen; i++) 
-        {text += "<li>" + shuffled_animals[i] + '<br><img src="'+shuffled_animals[i].toLowerCase()+_.shuffle(['1','2'])[0]+'.jpg"  width="200" height="200"> </li>';}
-        text += "</ul>";
-        document.getElementById("list").innerHTML = text;
+
+    fetch('https://dog.ceo/api/breeds/image/random')
+      .then(function(response) {
+         return response.json();
+         })
+      .then(function(json) {
+         dogurl = json.message
+         create_image_list(dogurl);
+         });
+    
+        function create_image_list(dogurl)
+        {
+            var animals = ["Dogs","Cats","Elephants","Giraffes","Alpacas","Cows","Cheetahs","Pandas","Polar Bears"];
+            var shuffled_animals = _.shuffle(animals)
+            var fLen = shuffled_animals.length;
+            var text =""
+
+            for (i = 0; i < fLen; i++)
+            {  
+                animal = shuffled_animals[i] 
+                animal_img = animal.toLowerCase()+_.shuffle(['1','2'])[0]
+        
+                if (animal =="Dogs"){ 
+                    text += '<div class="square"><div class="content"><div class="table"><div class="table-cell"><img src='+dogurl+'></div></div></div></div>';
+                    }
+                else{
+                    text += '<div class="square"><div class="content"><div class="table"><div class="table-cell"><img src="'+animal_img+'.jpg"/></div></div></div></div>';
+                    }
+            }
+
+            document.getElementById("list").innerHTML = text;
+        }
+        
+        
     </script>
     </body>
 </html>
