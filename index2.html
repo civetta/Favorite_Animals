@@ -1,0 +1,35 @@
+<HTML>
+    <HEAD>
+    </HEAD>
+    <BODY>
+    <p id = "Animal_Content"></p>
+        <script src="lodash.js"></script>
+        <SCRIPT>
+            fetch('https://dog.ceo/api/breeds/image/random')
+            .then(function(response) {
+                return response.json();})
+            .then(function(json) {
+                var dogurl = json.message;
+                create_favorite_animal_list(dogurl)});
+
+            function create_favorite_animal_list(dogurl){
+                var animals = ["Dogs","Cats","Elephants","Giraffes","Alpacas","Cows","Cheetahs","Pandas","Polar Bears"];
+                var animal_html = "<ul>"
+                var animals_length = animals.length;
+                for (i = 0; i < animals_length; i++)
+                {  
+                    each_animal = animals[i]
+                    if (each_animal =="Dogs"){
+                        animal_html += "<li>"+each_animal+'<br><img src="'+dogurl+'"/></li>'
+                    }
+                    else{ 
+                        animal_img = each_animal.toLowerCase()+_.shuffle(['1','2'])[0]
+                        animal_html += "<li>"+each_animal+'<br><img src="'+animal_img+'.jpg"/></li>'
+                        }
+                }
+                animal_html +="</ul>"
+                document.getElementById("Animal_Content").innerHTML = animal_html;
+            }
+        </SCRIPT>
+    </BODY>
+</HTML>
